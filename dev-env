@@ -1,0 +1,65 @@
+#! /bin/bash
+
+
+# Esse script ira montar um ambiente todo automatizado com as configurações e tecnologias personalizadas para o uso do meu dia-a-dia
+
+
+install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential)
+
+for i in ${install[*]}
+do
+	sudo apt install $i -y
+done
+
+applist=(discord.deb slack.deb google-chrome.deb code.deb zoom.deb insomnia.deb)
+
+# Download Discord app
+
+wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
+
+# Download Slack app
+
+wget -O slack.deb "https://downloads.slack-edge.com/releases/linux/4.25.0/prod/x64/slack-desktop-4.25.0-amd64.deb"
+
+# Download Google-Chrome app
+
+wget -O google-chrome.deb "https://www.google.com/intl/pt-BR/chrome/thank-you.html?statcb=0&installdataindex=empty&defaultbrowser=0#"
+
+# Download vscode app and install code.deb
+
+wget -O code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+
+# Download Zoom app
+
+wget -O zoom.deb "https://zoom.us/client/latest/zoom_amd64.deb"
+
+# Download Insomnia app
+
+wget -O insomnia.deb "https://updates.insomnia.rest/downloads/ubuntu/latest?&app=com.insomnia.app&source=website"
+
+# Download AppImage toolbox jetbrains
+
+wget -O jetbrains-toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.23.11731.tar.gz"
+
+
+for app in ${applist[*]}
+do
+	sudo dpkg -i $app -y
+done
+
+# Extract and move AppImage to Documents
+
+# Install Obsidian via flatpack
+
+flatpak install flathub md.obsidian.Obsidian -y
+
+# Install pre-commit
+
+pip install pre-commit
+
+# After all install, remove packages
+for app in ${applist[*]}
+do
+	echo 'deleting' ${app}
+	rm $app
+done
