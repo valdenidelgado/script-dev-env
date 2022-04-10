@@ -3,10 +3,13 @@
 
 # Esse script ira montar um ambiente todo automatizado com as configurações e tecnologias personalizadas para o uso do meu dia-a-dia
 
-FILE=./jetbrains*
+ZSHRC=resources/.zshrc
+BASHRC=resources/.bashrc
+FILE=jetbrains-toolbox.tar.gz
+DIRECTORY=jetbrains-toolbox-1.23.11731
 NOISE=./noise.tgz
 
-install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential libglib2.0-0 libgstreamer-plugins-base0.10-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0 libxcomposite1 libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0 ibus)
+install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 libfontconfig1 libegl1-mesa libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0 libxcomposite1 libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0 ibus)
 
 for i in ${install[*]}
 do
@@ -66,15 +69,17 @@ done
 if [ -f $FILE ]; then
 	echo "$FILE exist. Extract now"
 	tar -xvzf $FILE
+	echo "Removing resources"
+	rm -rf $FILE
 fi
 
 # Move AppImage to Documents
 
-if [ -d $FILE ]; then
-	echo "$FILE exist. Move to Documents"
-	mv $FILE/jetbrains-toolbox $HOME/Documents
+if [ -d $DIRECTORY ]; then
+	echo "$DIRECTORY exist. Move to Documents"
+	mv $DIRECTORY/jetbrains-toolbox $HOME/Documents
 	echo "Removing resources"
-	rm -rf $FILE
+	rm -rf $DIRECTORY
 fi
 
 # Extract NoiseTorch
@@ -104,3 +109,17 @@ do
 	echo 'deleting' ${app}
 	rm -rf $app
 done
+
+sudo apt update && sudo apt upgrade -y
+
+# Move .bashrc and .zshrc with actual update
+
+if [ -f $BASHRC ]; then
+	echo "Copy .bashrc to home"
+	cp $BASHRC $HOME/
+fi
+
+if [ -f $ZSHRC ]; then
+	echo "Copy .zshrc to home"
+	cp $ZSHRC $HOME/
+fi
