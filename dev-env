@@ -9,7 +9,23 @@ FILE=jetbrains-toolbox.tar.gz
 DIRECTORY=jetbrains-toolbox-1.23.11731
 NOISE=./noise.tgz
 
-install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 libfontconfig1 libegl1-mesa libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0 libxcomposite1 libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0 ibus)
+
+install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential nodejs gcc g++ make yarn libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 libfontconfig1 libegl1-mesa libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0 libxcomposite1 libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0 ibus)
+
+# Add some repository
+
+# Add repo Node 16x
+echo "Add repository Node 16x"
+
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo bash -
+
+# Add repo Yarn package manager
+echo "Add repository Yarn package manager"
+
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+sudo apt update && sudo apt clean all
 
 for i in ${install[*]}
 do
@@ -123,3 +139,10 @@ if [ -f $ZSHRC ]; then
 	echo "Copy .zshrc to home"
 	cp $ZSHRC $HOME/
 fi
+
+source $HOME/.bashrc
+source $HOME/.zshrc
+
+sudo apt update && sudo apt upgrade
+
+npm install -g npm@8.6.0 -y
