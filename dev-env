@@ -28,7 +28,7 @@ wget -O slack.deb "https://downloads.slack-edge.com/releases/linux/4.25.0/prod/x
 # Download Google-Chrome browser
 echo "Download Google-Chrome browser"
 
-wget -O google-chrome.deb "https://github.com/valdenidelgado/script-dev-env"
+wget -O google-chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 
 # Download vscode app
 echo "Download VsCode app"
