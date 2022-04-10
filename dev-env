@@ -3,8 +3,10 @@
 
 # Esse script ira montar um ambiente todo automatizado com as configurações e tecnologias personalizadas para o uso do meu dia-a-dia
 
+FILE=./jetbrains*
+NOISE=./noise.tgz
 
-install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential)
+install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential libglib2.0-0 libgstreamer-plugins-base0.10-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0 libxcomposite1 libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0 ibus)
 
 for i in ${install[*]}
 do
@@ -14,44 +16,83 @@ done
 applist=(discord.deb slack.deb google-chrome.deb code.deb zoom.deb insomnia.deb)
 
 # Download Discord app
+echo "Download Discord app"
 
 wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
 
 # Download Slack app
+echo "Download Slack app"
 
 wget -O slack.deb "https://downloads.slack-edge.com/releases/linux/4.25.0/prod/x64/slack-desktop-4.25.0-amd64.deb"
 
-# Download Google-Chrome app
+# Download Google-Chrome browser
+echo "Download Google-Chrome browser"
 
-wget -O google-chrome.deb "https://www.google.com/intl/pt-BR/chrome/thank-you.html?statcb=0&installdataindex=empty&defaultbrowser=0#"
+wget -O google-chrome.deb "https://github.com/valdenidelgado/script-dev-env"
 
-# Download vscode app and install code.deb
+# Download vscode app
+echo "Download VsCode app"
 
 wget -O code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 
 # Download Zoom app
+echo "Download Zoom app"
 
-wget -O zoom.deb "https://zoom.us/client/latest/zoom_amd64.deb"
+wget -O zoom.deb "https://cdn.zoom.us/prod/5.10.0.2450/zoom_amd64.deb"
 
 # Download Insomnia app
-
+echo "Download Insomnnia app"
 wget -O insomnia.deb "https://updates.insomnia.rest/downloads/ubuntu/latest?&app=com.insomnia.app&source=website"
 
 # Download AppImage toolbox jetbrains
+echo "Download AppImage Jetbrains Toolbox"
 
 wget -O jetbrains-toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.23.11731.tar.gz"
 
+# Download release NoiseTorch
+echo "Download NoiseTorch"
+
+wget -O noise.tgz "https://github.com/lawl/NoiseTorch/releases/download/0.11.5/NoiseTorch_x64.tgz"
 
 for app in ${applist[*]}
 do
-	sudo dpkg -i $app -y
+	sudo dpkg -i $app
 done
 
 # Extract and move AppImage to Documents
 
+# Extract tar.gz
+
+if [ -f $FILE ]; then
+	echo "$FILE exist. Extract now"
+	tar -xvzf $FILE
+fi
+
+# Move AppImage to Documents
+
+if [ -d $FILE ]; then
+	echo "$FILE exist. Move to Documents"
+	mv $FILE/jetbrains-toolbox $HOME/Documents
+	echo "Removing resources"
+	rm -rf $FILE
+fi
+
+# Extract NoiseTorch
+
+if [ -f $NOISE ]; then
+	echo "$NOISE exist. Extract now"
+	tar -C $HOME -xzf $NOISE
+	# Depending on your desktop environment you may need to wait for it to rescan for applications, or tell it to do a refresh now.
+	gtk-update-icon-cache
+	# Give it the required permissions with setcap
+	sudo setcap 'CAP_SYS_RESOURCE=+ep' ~/.local/bin/noisetorch
+	echo "Removing resources"
+	rm -rf $NOISE
+fi
+
 # Install Obsidian via flatpack
 
-flatpak install flathub md.obsidian.Obsidian -y
+flatpak install flathub md.obsidian.Obsidian
 
 # Install pre-commit
 
@@ -61,5 +102,5 @@ pip install pre-commit
 for app in ${applist[*]}
 do
 	echo 'deleting' ${app}
-	rm $app
+	rm -rf $app
 done
