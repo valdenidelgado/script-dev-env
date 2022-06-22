@@ -39,11 +39,6 @@ echo "Download Discord app"
 
 wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
 
-# Download Slack app
-echo "Download Slack app"
-
-wget -O slack.deb "https://downloads.slack-edge.com/releases/linux/4.25.0/prod/x64/slack-desktop-4.25.0-amd64.deb"
-
 # Download Google-Chrome browser
 echo "Download Google-Chrome browser"
 
@@ -71,7 +66,7 @@ wget -O jetbrains-toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrai
 # Download release NoiseTorch
 echo "Download NoiseTorch"
 
-wget -O noise.tgz "https://github.com/lawl/NoiseTorch/releases/download/0.11.5/NoiseTorch_x64.tgz"
+wget -O noise.tgz "https://github.com/noisetorch/NoiseTorch/releases/download/v0.12.2/NoiseTorch_x64_v0.12.2.tgz"
 
 for app in ${applist[*]}
 do
@@ -111,12 +106,7 @@ if [ -f $NOISE ]; then
 	rm -rf $NOISE
 fi
 
-# Install Obsidian via flatpack
-
-flatpak install flathub md.obsidian.Obsidian
-
 # Install pre-commit
-
 pip install pre-commit
 
 # After all install, remove packages
