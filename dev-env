@@ -10,7 +10,7 @@ DIRECTORY=jetbrains-toolbox-1.23.11731
 NOISE=./noise.tgz
 
 
-install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential nodejs gcc g++ make yarn libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 libfontconfig1 libegl1-mesa libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0 libxcomposite1 libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0 ibus)
+install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential nodejs gcc g++ make yarn)
 
 # Add some repository
 
@@ -36,23 +36,15 @@ applist=(discord.deb slack.deb google-chrome.deb code.deb zoom.deb insomnia.deb)
 
 # Download Discord app
 echo "Download Discord app"
-
 wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
 
 # Download Google-Chrome browser
 echo "Download Google-Chrome browser"
-
 wget -O google-chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 
 # Download vscode app
 echo "Download VsCode app"
-
 wget -O code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-
-# Download Zoom app
-echo "Download Zoom app"
-
-wget -O zoom.deb "https://cdn.zoom.us/prod/5.10.0.2450/zoom_amd64.deb"
 
 # Download Insomnia app
 echo "Download Insomnnia app"
@@ -60,12 +52,10 @@ wget -O insomnia.deb "https://updates.insomnia.rest/downloads/ubuntu/latest?&app
 
 # Download AppImage toolbox jetbrains
 echo "Download AppImage Jetbrains Toolbox"
-
 wget -O jetbrains-toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.23.11731.tar.gz"
 
 # Download release NoiseTorch
 echo "Download NoiseTorch"
-
 wget -O noise.tgz "https://github.com/noisetorch/NoiseTorch/releases/download/v0.12.2/NoiseTorch_x64_v0.12.2.tgz"
 
 for app in ${applist[*]}
