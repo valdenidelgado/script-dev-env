@@ -10,7 +10,7 @@ DIRECTORY=jetbrains-toolbox-1.23.11731
 NOISE=./noise.tgz
 
 
-install=(terminator vim neofetch htop cmatrix python3.9 python3-pip zsh build-essential nodejs gcc g++ make yarn)
+install=(terminator vim neofetch htop cmatrix python3.9 python3-pip build-essential nodejs gcc g++ make yarn zsh)
 
 # Add some repository
 
@@ -63,6 +63,13 @@ do
 	sudo dpkg -i $app
 done
 
+chsh -s /bin/zsh
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
 # Extract and move AppImage to Documents
 
 # Extract tar.gz
@@ -96,15 +103,14 @@ if [ -f $NOISE ]; then
 	rm -rf $NOISE
 fi
 
-# Install pre-commit
-pip install pre-commit
-
 # After all install, remove packages
 for app in ${applist[*]}
 do
 	echo 'deleting' ${app}
 	rm -rf $app
 done
+
+
 
 sudo apt update && sudo apt upgrade -y
 
