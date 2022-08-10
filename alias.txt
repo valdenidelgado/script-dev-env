@@ -1,9 +1,11 @@
 # Some alias for productivy in Arch Linux
 
 alias update="sudo pacman -Syyu -y" # update system
+alias gsts="git status -s" #show status one line
 alias gst="git status"
 alias ga="git add"
 alias gcm="git commit -m"
+alias gcam="git add . && git commit -m"
 alias gp="git push" # push
 alias gpo="git push origin" #switch pushorigin
 alias clone="git clone"
@@ -15,3 +17,4 @@ alias branch="git checkout -b" # Creates branch
 alias undo='git reset --soft HEAD^' # revert the last commit keeping the changes
 alias pop='git stash pop' # drop the last stash
 alias merge='git merge $@' # shortcut
+alias gl="git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'" # show log oneline with hash, msg, user, date
