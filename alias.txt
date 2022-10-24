@@ -1,6 +1,7 @@
-# Some alias for productivy in Arch Linux
+#Some alias for productivy in Arch Linux or Ubuntu system
 
-alias update="sudo pacman -Syyu -y" # update system
+# alias update="sudo pacman -Syyu -y" # update system
+alias update="sudo apt update && sudo apt upgrade -y"
 alias gsts="git status -s" #show status one line
 alias gst="git status"
 alias ga="git add"
