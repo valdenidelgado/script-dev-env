@@ -1,16 +1,12 @@
 #! /bin/bash
 
-
 # Esse script ira montar um ambiente todo automatizado com as configurações e tecnologias personalizadas para o uso do meu dia-a-dia
 
-ZSHRC=resources/.zshrc
-BASHRC=resources/.bashrc
 FILE=jetbrains-toolbox.tar.gz
 DIRECTORY=jetbrains-toolbox-1.23.11731
-NOISE=./noise.tgz
 
 
-install=(terminator vim neofetch htop cmatrix python3.9 python3-pip build-essential nodejs gcc g++ make yarn zsh)
+install=(terminator vim neofetch htop cmatrix python3.10 python3-pip build-essential nodejs gcc g++ make yarn zsh)
 
 # Add some repository
 
@@ -32,7 +28,7 @@ do
 	sudo apt install $i -y
 done
 
-applist=(discord.deb slack.deb google-chrome.deb code.deb insomnia.deb)
+applist=(discord.deb neovim.deb google-chrome.deb code.deb insomnia.deb)
 
 # Download Discord app
 echo "Download Discord app"
@@ -56,7 +52,7 @@ wget -O jetbrains-toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrai
 
 # Download release NoiseTorch
 echo "Download NoiseTorch"
-wget -O noise.tgz "https://github.com/noisetorch/NoiseTorch/releases/download/v0.12.2/NoiseTorch_x64_v0.12.2.tgz"
+wget -O neovim.deb "https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-linux64.deb"
 
 for app in ${applist[*]}
 do
@@ -85,19 +81,6 @@ if [ -d $DIRECTORY ]; then
 	rm -rf $DIRECTORY
 fi
 
-# Extract NoiseTorch
-
-if [ -f $NOISE ]; then
-	echo "$NOISE exist. Extract now"
-	tar -C $HOME -xzf $NOISE
-	# Depending on your desktop environment you may need to wait for it to rescan for applications, or tell it to do a refresh now.
-	gtk-update-icon-cache
-	# Give it the required permissions with setcap
-	sudo setcap 'CAP_SYS_RESOURCE=+ep' ~/.local/bin/noisetorch
-	echo "Removing resources"
-	rm -rf $NOISE
-fi
-
 # After all install, remove packages
 for app in ${applist[*]}
 do
@@ -105,30 +88,4 @@ do
 	rm -rf $app
 done
 
-
-
 sudo apt update && sudo apt upgrade -y
-
-# Move .bashrc and .zshrc with actual update
-
-if [ -f $BASHRC ]; then
-	echo "Copy .bashrc to home"
-	cp $BASHRC $HOME/
-fi
-
-if [ -f $ZSHRC ]; then
-	echo "Copy .zshrc to home"
-	cp $ZSHRC $HOME/
-fi
-
-source $HOME/.bashrc
-source $HOME/.zshrc
-
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-
-sudo apt update && sudo apt upgrade
-
-npm install -g npm@8.6.0 -y
