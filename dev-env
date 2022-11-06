@@ -5,11 +5,6 @@
 FILE=jetbrains-toolbox.tar.gz
 DIRECTORY=jetbrains-toolbox-1.23.11731
 
-
-install=(terminator vim neofetch htop cmatrix python3.10 python3-pip build-essential nodejs gcc g++ make yarn zsh)
-
-# Add some repository
-
 # Add repo Node 16x
 echo "Add repository Node 16x"
 
@@ -23,12 +18,7 @@ echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/deb
 
 sudo apt update && sudo apt clean all
 
-for i in ${install[*]}
-do
-	sudo apt install $i -y
-done
-
-applist=(discord.deb neovim.deb google-chrome.deb code.deb insomnia.deb)
+sudo apt install terminator vim neofetch htop cmatrix python3.10 python3-pip build-essential nodejs gcc g++ make yarn zsh -y
 
 # Download Discord app
 echo "Download Discord app"
@@ -50,14 +40,11 @@ wget -O insomnia.deb "https://updates.insomnia.rest/downloads/ubuntu/latest?&app
 echo "Download AppImage Jetbrains Toolbox"
 wget -O jetbrains-toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.23.11731.tar.gz"
 
-# Download release NoiseTorch
-echo "Download NoiseTorch"
+# Download release nvim 0.8.0 
+echo "Download Nvim"
 wget -O neovim.deb "https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-linux64.deb"
 
-for app in ${applist[*]}
-do
-	sudo dpkg -i $app
-done
+sudo dpkg -i discord.deb neovim.deb google-chrome.deb code.deb insomnia.deb
 
 chsh -s /bin/zsh
 
@@ -80,6 +67,8 @@ if [ -d $DIRECTORY ]; then
 	echo "Removing resources"
 	rm -rf $DIRECTORY
 fi
+
+#TODO Create list to remove package files
 
 # After all install, remove packages
 for app in ${applist[*]}
