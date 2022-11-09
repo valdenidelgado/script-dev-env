@@ -18,7 +18,7 @@ echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/deb
 
 sudo apt update && sudo apt clean all
 
-sudo apt install terminator vim neofetch htop cmatrix python3.10 python3-pip build-essential nodejs gcc g++ make yarn zsh -y
+sudo apt install terminator vim neofetch htop cmatrix python3.10 python3-pip build-essential nodejs gcc g++ make yarn zsh git curl -y
 
 # Download Discord app
 echo "Download Discord app"
@@ -78,3 +78,17 @@ do
 done
 
 sudo apt update && sudo apt upgrade -y
+
+#TODO Create script for docker
+#TODO Create script for Java
+#TODO Add nvm config
+#TODO Add flatpak config
+#TODO snap -spotify and brave browser
+#TODO VLC
+#TODO Telegram-desktop snap 
+#TODO Rust
+#TODO AstroNvim
+#TODO create ssh 4 fast
+#TODO create git config list
+#TODO create config oh my zsh
+#TODO install bat
