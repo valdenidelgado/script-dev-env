@@ -19,3 +19,5 @@ alias undo='git reset --soft HEAD^' # revert the last commit keeping the changes
 alias pop='git stash pop' # drop the last stash
 alias merge='git merge $@' # shortcut
 alias gl="git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'" # show log oneline with hash, msg, user, date
+alias study='cd ~/workspace/studies'
+alias work='cd ~/workspace/work'
